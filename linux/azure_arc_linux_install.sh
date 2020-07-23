@@ -1,5 +1,5 @@
 #Connect ARC Linux machines to Azure at scale
-# To execute "curl -s -L http://bitly/10hA8iC | bash"
+# To execute "curl -s -L https://raw.githubusercontent.com/jonathan-vella/scripts/master/linux/azure_arc_linux_install.sh | bash"
 #!/bin/bash
 
 sudo apt-get update
