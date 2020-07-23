@@ -12,7 +12,7 @@ export appId='10b3e335-e270-410e-87bd-4a3eebce5866'
 export password='e074481c-c929-44bb-88f4-62ed20f07a01'
 export tenantId='72f988bf-86f1-41af-91ab-2d7cd011db47'
 export resourceGroup='ilc-arcdemo-rg'
-export location='Wst Europe'
+export location='West Europe'
 
 # Installing Azure CLI
 curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
