@@ -82,7 +82,7 @@
       }
     }
   },
-  "id": "/subscriptions/1a4dee4d-78d9-4ec1-b2d7-3c168d5c2cd3/providers/Microsoft.Authorization/policyDefinitions/ff800ed6-205d-4702-bef3-571e555141d8",
+  "id": "/subscriptions/"insert your subscription id here"/providers/Microsoft.Authorization/policyDefinitions/ff800ed6-205d-4702-bef3-571e555141d8",
   "type": "Microsoft.Authorization/policyDefinitions",
   "name": "ff800ed6-205d-4702-bef3-571e555141d8"
 }
