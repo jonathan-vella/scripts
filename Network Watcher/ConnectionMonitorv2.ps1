@@ -36,7 +36,6 @@ Select-AzSubscription -SubscriptionId $subscriptiion
 
 ## Define Test Group
 $testGroup1 = New-AzNetworkWatcherConnectionMonitorTestGroupObject -Name testGroup1 -TestConfiguration $httpTestConfiguration, $tcpTestConfiguration, $icmpTestConfiguration -Source $sourcevmid1 -Destination $bingEndpoint, $googleEndpoint
-$testname = "cmtest9"
 
 ##Create Test
 New-AzNetworkWatcherConnectionMonitor -NetworkWatcherName $nw -ResourceGroupName NetworkWatcherRG -Name $testname -TestGroup $testGroup1
