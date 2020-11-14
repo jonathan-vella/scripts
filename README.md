@@ -1,1 +1,1 @@
-# Just a bunch of scripts which I either created or copied.
+# Just a bunch of scripts which I either created or borrowed from somewhere else (many thanks for the authros!)
