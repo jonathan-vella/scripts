@@ -1,0 +1,36 @@
+# Create ACR Service Principal
+# Create an ACR service principal using the following script.
+# Make sure to replace registry name with your own info, make sure to use acrpull role with the lowest privilege.
+# Keep the Service principal ID and Service principal password for the next step.
+# More details at: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-auth-service-principal
+
+```bash
+# Modify for your environment.
+# ACR_NAME: The name of your Azure Container Registry
+# SERVICE_PRINCIPAL_NAME: Must be unique within your AD tenant
+ACR_NAME=your-unique-acr-name.azurecr.io
+SERVICE_PRINCIPAL_NAME=your-service-principal-name
+
+# Obtain the full registry ID for subsequent command args
+ACR_REGISTRY_ID=$(az acr show --name $ACR_NAME --query id --output tsv)
+
+# Create the service principal with rights scoped to the registry.
+# More details at: https://docs.microsoft.com/en-us/azure/container-registry/container-registry-roles
+# Default permissions are for docker pull access. Modify the '--role'
+# argument value as desired:
+# acrpull:     pull only
+# acrpush:     push and pull
+# contributor: push, pull, ARM access, etc
+# owner:       push, pull, ARM access, assign roles, etc
+SP_PASSWD=$(az ad sp create-for-rbac --name http://$SERVICE_PRINCIPAL_NAME --scopes $ACR_REGISTRY_ID --role acrpush --query password --output tsv)
+SP_APP_ID=$(az ad sp show --id http://$SERVICE_PRINCIPAL_NAME --query appId --output tsv)
+
+# Output the service principal's credentials; use these in your services and
+# applications to authenticate to the container registry.
+echo "Service principal ID: $SP_APP_ID"
+echo "Service principal password: $SP_PASSWD"
+```
+
+
+Service principal ID: 8b85e39c-60b9-469b-a47f-7d6d7306c4f7
+Service principal password: 86iF7i-~0cBXhSZzzKHk-wDgc_km1tDsam
