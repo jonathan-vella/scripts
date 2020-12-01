@@ -30,7 +30,3 @@ SP_APP_ID=$(az ad sp show --id http://$SERVICE_PRINCIPAL_NAME --query appId --ou
 echo "Service principal ID: $SP_APP_ID"
 echo "Service principal password: $SP_PASSWD"
 ```
-
-
-Service principal ID: 8b85e39c-60b9-469b-a47f-7d6d7306c4f7
-Service principal password: 86iF7i-~0cBXhSZzzKHk-wDgc_km1tDsam
