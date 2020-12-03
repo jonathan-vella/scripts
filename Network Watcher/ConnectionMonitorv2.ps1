@@ -29,8 +29,8 @@ $testname = "your-cm-test-name" # Connection Monitor (Preview) Test Name
     $externalEndpoint = New-AzNetworkWatcherConnectionMonitorEndpointObject -Name MyExternalIPAdress -ExternalAddress -Address 192.168.1.1 # Destination IP
 
     # DNS Endpoint
-    $bingEndpoint = New-AzNetworkWatcherConnectionMonitorEndpointObject -name Bing -Address www.bing.com # Destination URL
-    $googleEndpoint = New-AzNetworkWatcherConnectionMonitorEndpointObject -name Google -Address www.google.com # Destination URL
+    $bingEndpoint = New-AzNetworkWatcherConnectionMonitorEndpointObject -name Bing -ExternalAddress -Address www.bing.com # Destination URL
+    $googleEndpoint = New-AzNetworkWatcherConnectionMonitorEndpointObject -name Google -ExternalAddress -Address www.google.com # Destination URL
 
 ## Define configuration
     # Define Protocol Configuration
