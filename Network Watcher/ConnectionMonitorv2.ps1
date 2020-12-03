@@ -19,7 +19,7 @@ $testname = "your-cm-test-name" # Connection Monitor (Preview) Test Name
 
 ## Define Endpoints
     # Azure VM Endpoint
-    $sourcevmid1 = New-AzNetworkWatcherConnectionMonitorEndpointObject -Name MyAzureVm -ResourceID /subscriptions/your-subscription-id/resourceGroups/your-resourcegroup-name/providers/Microsoft.Compute/virtualMachines/your-vm-name # Azure VM Source ID
+    $sourcevmid1 = New-AzNetworkWatcherConnectionMonitorEndpointObject -Name MyAzureVm -AzureVM -ResourceID /subscriptions/your-subscription-id/resourceGroups/your-resourcegroup-name/providers/Microsoft.Compute/virtualMachines/your-vm-name # Azure VM Source ID
 
     # Log Analytics Agent Endpoint
     $MySrcResourceId1 = "/subscriptions/insert your sub id here/resourcegroups/your resource group name/providers/Microsoft.OperationalInsights/workspaces/your-worskspace-name"
