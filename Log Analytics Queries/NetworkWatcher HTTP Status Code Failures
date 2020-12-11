@@ -1,0 +1,7 @@
+//You could use the below query to check if there is a http status code validation issue in the configured test
+// Replace <<connectionMonitorResourceId>> with the actual one)
+
+ConnectionMonitor_CL
+| where ConnectionMonitorResourceId_s == '<<ConnectionMonitorResourceId>>'
+| where SubType_s has "ConnectionMonitorPath"
+| where Issues_s hasprefix "StatusCodeValidationFailed"
