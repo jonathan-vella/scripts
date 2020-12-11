@@ -36,7 +36,7 @@ $testname = "your-cm-test-name" # Connection Monitor (Preview) Test Name
     # Define Protocol Configuration
     $IcmpProtocolConfiguration = New-AzNetworkWatcherConnectionMonitorProtocolConfigurationObject -IcmpProtocol
     $TcpProtocolConfiguration = New-AzNetworkWatcherConnectionMonitorProtocolConfigurationObject -TcpProtocol -Port 80
-    $httpProtocolConfiguration = New-AzNetworkWatcherConnectionMonitorProtocolConfigurationObject -HttpProtocol -Port 443 -Method GET -RequestHeader @{Allow = "GET"} -ValidStatusCodeRange 4xx, 500-503 -PreferHTTPS # Change codes based on your requirement
+    $httpProtocolConfiguration = New-AzNetworkWatcherConnectionMonitorProtocolConfigurationObject -HttpProtocol -Port 443 -Method GET -RequestHeader @{Allow = "GET"} -ValidStatusCodeRange 400, 500, 503 -PreferHTTPS # Change codes based on your requirement
         
     # Define Test Configuration
     $httpTestConfiguration = New-AzNetworkWatcherConnectionMonitorTestConfigurationObject -Name http-tc -TestFrequencySec 60 -ProtocolConfiguration $httpProtocolConfiguration -SuccessThresholdChecksFailedPercent 20 -SuccessThresholdRoundTripTimeMs 30
@@ -46,5 +46,8 @@ $testname = "your-cm-test-name" # Connection Monitor (Preview) Test Name
 ## Define Test Group
 $testGroup1 = New-AzNetworkWatcherConnectionMonitorTestGroupObject -Name testGroup1 -TestConfiguration $httpTestConfiguration, $tcpTestConfiguration, $icmpTestConfiguration -Source $sourcevmid1, $SourceEndpointObject1 -Destination $bingEndpoint, $googleEndpoint
 
+## Define Connection Monitor Output
+$outputobject = New-AzNetworkWatcherConnectionMonitorOutputObject -OutputType "workspace" -WorkspaceResourceId "/subscriptions/insert your sub id here/resourcegroups/your resource group name/providers/Microsoft.OperationalInsights/workspaces/your-worskspace-name"
+
 ##Create Test
-New-AzNetworkWatcherConnectionMonitor -NetworkWatcherName $nw -ResourceGroupName NetworkWatcherRG -Name $testname -TestGroup $testGroup1
+New-AzNetworkWatcherConnectionMonitor -NetworkWatcherName $nw -ResourceGroupName NetworkWatcherRG -Name $testname -TestGroup $testGroup1 -output $outputobject
