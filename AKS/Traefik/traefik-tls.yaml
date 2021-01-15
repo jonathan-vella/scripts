@@ -49,9 +49,9 @@ data:
           publishedService = "a0008/traefik-ingress-service"
     # Enable gzip compression
     [http.middlewares]
-      #[http.middlewares.gzip-compress.compress]
-      #[http.middlewares.app-gateway-snet.ipWhiteList]
-        #sourceRange = ["10.240.4.16/28"]
+       [http.middlewares.gzip-compress.compress]
+       [http.middlewares.app-gateway-snet.ipWhiteList]
+         sourceRange = ["10.12.0.0/24"]
     [entryPoints]
       [entryPoints.metrics]
         address = ":8082"
@@ -60,7 +60,7 @@ data:
       [entryPoints.websecure]
         address = ":8443"
         #[entryPoints.web.forwardedHeaders]
-          #trustedIPs = ["10.240.4.16/28"]
+           trustedIPs = ["10.12.0.0/24"]
         [entryPoints.websecure.http.tls]
           options = "default"
     [ping]
@@ -95,7 +95,7 @@ metadata:
     service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "snet-clusterservices"
 spec:
   type: LoadBalancer
-  #loadBalancerIP: 10.240.4.4
+  loadBalancerIP: 10.12.1.100
   externalTrafficPolicy: Local
   selector:
     app.kubernetes.io/name: traefik-ingress-ilb
