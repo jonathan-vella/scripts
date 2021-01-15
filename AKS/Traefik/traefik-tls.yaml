@@ -45,7 +45,6 @@ data:
       # and derives the corresponding dynamic configuration from it. https://kubernetes.io/docs/concepts/services-networking/ingress/
       [providers.kubernetesingress]
         ingressClass = "traefik-internal"
-        namespaces = ["a0008"]
         [providers.kubernetesIngress.ingressEndpoint]
           publishedService = "a0008/traefik-ingress-service"
     # Enable gzip compression
@@ -87,8 +86,7 @@ data:
 apiVersion: v1
 kind: Service
 metadata:
-  name: traefik-ingress-service
-  namespace: a0008
+  name: traefik-ingress-service  
   labels:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
@@ -110,8 +108,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: traefik-ingress-controller
-  namespace: a0008
+  name: traefik-ingress-controller 
   labels:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
