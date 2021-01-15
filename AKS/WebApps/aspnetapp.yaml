@@ -67,13 +67,11 @@ spec:
         - name: COMPlus_EnableDiagnostics
           # https://github.com/dotnet/dotnet-docker/issues/940
           value: "0"
-      nodeSelector:
-       agentpool: npuser01
 ---
 apiVersion: policy/v1beta1
 kind: PodDisruptionBudget
 metadata:
-  name: aspnetapp-pdb
+  name: aspnetapp-pdb  
 spec:
   minAvailable: 75%
   selector:
@@ -92,7 +90,7 @@ spec:
     port: 80
     targetPort: 8080
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: aspnetapp-ingress  
@@ -121,7 +119,10 @@ spec:
     http:
       paths:
       - path: /
+        pathType: Prefix
         backend:
-          serviceName: aspnetapp-service
-          servicePort: http
+          service:
+            name: aspnetapp-service
+            port:
+              number: 80
 ---
