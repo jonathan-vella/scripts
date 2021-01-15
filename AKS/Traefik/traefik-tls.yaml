@@ -2,7 +2,6 @@ kind: ServiceAccount
 apiVersion: v1
 metadata:
   name: traefik-ingress-controller
-  namespace: a0008
   labels:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
