@@ -1,7 +1,7 @@
 kind: ServiceAccount
 apiVersion: v1
 metadata:
-  name: traefik-ingress-controller
+  name: traefik-ingress-controller  
   labels:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
@@ -44,14 +44,14 @@ data:
       # Traefik provider that supports the native Kubernetes Ingress specification
       # and derives the corresponding dynamic configuration from it. https://kubernetes.io/docs/concepts/services-networking/ingress/
       [providers.kubernetesingress]
-        ingressClass = "traefik-internal"
+        ingressClass = "traefik-internal"        
         [providers.kubernetesIngress.ingressEndpoint]
-          publishedService = "a0008/traefik-ingress-service"
+          publishedService = "traefik-ingress-service"
     # Enable gzip compression
     [http.middlewares]
-       [http.middlewares.gzip-compress.compress]
-       [http.middlewares.app-gateway-snet.ipWhiteList]
-         sourceRange = "10.12.0.0/24"
+      [http.middlewares.gzip-compress.compress]
+      [http.middlewares.app-gateway-snet.ipWhiteList]
+        sourceRange = ["10.12.0.0/24"]
     [entryPoints]
       [entryPoints.metrics]
         address = ":8082"
@@ -59,8 +59,8 @@ data:
         address = ":9000"
       [entryPoints.websecure]
         address = ":8443"
-        #[entryPoints.web.forwardedHeaders]
-           trustedIPs = "10.12.0.0/24"
+        [entryPoints.web.forwardedHeaders]
+          trustedIPs = ["10.12.0.0/24"]
         [entryPoints.websecure.http.tls]
           options = "default"
     [ping]
@@ -108,7 +108,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: traefik-ingress-controller 
+  name: traefik-ingress-controller  
   labels:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
