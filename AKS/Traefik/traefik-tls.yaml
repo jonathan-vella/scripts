@@ -92,8 +92,6 @@ metadata:
     app.kubernetes.io/instance: traefik-ingress-ilb
 spec:
   type: LoadBalancer
-  loadBalancerIP: 10.12.1.100
-  externalTrafficPolicy: Local
   selector:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
