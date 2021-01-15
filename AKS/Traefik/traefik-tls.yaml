@@ -90,9 +90,6 @@ metadata:
   labels:
     app.kubernetes.io/name: traefik-ingress-ilb
     app.kubernetes.io/instance: traefik-ingress-ilb
-  annotations:
-    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
-    service.beta.kubernetes.io/azure-load-balancer-internal-subnet: "snet-clusterservices"
 spec:
   type: LoadBalancer
   loadBalancerIP: 10.12.1.100
