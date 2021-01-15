@@ -46,7 +46,7 @@ data:
       [providers.kubernetesingress]
         ingressClass = "traefik-internal"
         [providers.kubernetesIngress.ingressEndpoint]
-          publishedService = "a0008/traefik-ingress-service"
+          publishedService = "traefik-ingress-service"
     # Enable gzip compression
     [http.middlewares]
        [http.middlewares.gzip-compress.compress]
