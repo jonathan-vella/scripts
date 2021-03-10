@@ -1,0 +1,58 @@
+############################################################
+
+# Create Service Principal as per https://docs.microsoft.com/en-us/azure/azure-arc/servers/onboard-service-principal
+
+############################################################
+
+# Connect ARC Windows machines to Azure at scale
+# Download the package
+function download() {$ProgressPreference="SilentlyContinue"; Invoke-WebRequest -Uri https://aka.ms/AzureConnectedMachineAgent -OutFile AzureConnectedMachineAgent.msi}
+download
+
+# Install the package
+msiexec /i AzureConnectedMachineAgent.msi /l*v installationlog.txt /qn | Out-String
+
+# Run connect command
+& "$env:ProgramFiles\AzureConnectedMachineAgent\azcmagent.exe" connect `
+  --service-principal-id "your-app-id" `
+  --service-principal-secret "your-secret" `
+  --resource-group "your-arc-rg" `
+  --tenant-id "your-aadtenant-id" `
+  --location "West Europe" `
+  --subscription-id "your-sub-id"
+
+############################################################
+
+# Connect ARC Linux machines to Azure at scale
+#!/bin/bash
+
+sudo apt-get update
+
+# <--- Change the following environment variables according to your Azure Service Principle name --->
+
+echo "Exporting environment variables"
+export subscriptionId='your-sub-id'
+export appId='your-app-id'
+export password='your-secret'
+export tenantId='your-aadtenant-id'
+export resourceGroup='your-arc-rg'
+export location='West Europe'
+
+# Installing Azure CLI
+curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+az login --service-principal --username $appId --password $password --tenant $tenantId
+
+# Download the installation package
+wget https://aka.ms/azcmagent -O ~/install_linux_azcmagent.sh
+
+# Install the hybrid agent
+bash ~/install_linux_azcmagent.sh
+
+# Run connect command
+azcmagent connect \
+  --service-principal-id "${appId}" \
+  --service-principal-secret "${password}" \
+  --resource-group "${resourceGroup}" \
+  --tenant-id "${tenantId}" \
+  --location "${location}" \
+  --subscription-id "${subscriptionId}"
