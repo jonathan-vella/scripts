@@ -5,6 +5,7 @@
 ############################################################
 
 # Connect ARC Windows machines to Azure at scale
+# You can save this a PS script
 # Download the package
 function download() {$ProgressPreference="SilentlyContinue"; Invoke-WebRequest -Uri https://aka.ms/AzureConnectedMachineAgent -OutFile AzureConnectedMachineAgent.msi}
 download
@@ -24,6 +25,7 @@ msiexec /i AzureConnectedMachineAgent.msi /l*v installationlog.txt /qn | Out-Str
 ############################################################
 
 # Connect ARC Linux machines to Azure at scale
+# You can save this a Bash script
 #!/bin/bash
 
 sudo apt-get update
@@ -56,3 +58,5 @@ azcmagent connect \
   --tenant-id "${tenantId}" \
   --location "${location}" \
   --subscription-id "${subscriptionId}"
+  
+  ############################################################
