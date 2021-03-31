@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-app-deployment
+  namespace: my-app
+  labels:
+    app: my-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: my-app
+  template:
+    metadata:
+      labels:
+        app: my-app
+    spec:
+      containers:
+      - name: my-app
+        image: "{{<acr registry name>.azurecr.io/<name of acr registry>:<tag>}}"
+        ports:
+        - containerPort: 80
+        env:
+        - name: ENV_VAR_NAME
+          value: "Value of environment variable"
+        envFrom:
+          - secretRef:
+            name: {{name of your secret in kubernetes}}
+        # not required, but recommended best practice
+        livenessProbe:
+          httpGet:
+            path: "{{url path you want to check}}" # hint: there is a healthcheck endpoint - read the README!
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            path: "{{url path you want to check}}"
+            port: 80
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        # resource limits are also best practice - I'll let you figure that out on your own
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-app
+  namespace: my-app
+spec:
+  type: ClusterIP #LoadBalancer
+  selector:
+    app: my-app
+  ports:
+    - protocol: TCP
+      name: my-app-http
+      port: 80 # port you hit
+      targetPort: 80 # port inside container
